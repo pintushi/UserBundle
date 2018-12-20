@@ -1,0 +1,14 @@
+Pintushi\Bundle\UserBundle\Request\ChangePhoneNumber:
+    constraints:
+    - Pintushi\ShopApiPlugin\Validator\Constraints\SmsCaptcha:
+        codeField: code
+        groups: [pintushi]
+        phoneNumberField: phoneNumber
+    - Pintushi\Bundle\UserBundle\Validator\Constraints\UserNotExist:
+        fields: [ 'phoneNumber']
+        userClass: 'Pintushi\Bundle\UserBundle\Entity\User'
+    properties:
+        phoneNumber:
+          - NotBlank: { groups: ["pintushi"] }
+        code:
+          - NotBlank: { groups: ["pintushi"] }

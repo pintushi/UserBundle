@@ -1,0 +1,25 @@
+(default): 实体的默认权限
+VIEW: 查看
+CREATE: 创建
+EDIT: 编辑
+DELETE: 删除
+ASSIGN: 分派
+"view %entityName%": "查看%entityName%"
+"view %fieldName% not granted": "你没有权限查看%fieldName%"
+pintushi:
+    security:
+        access_level:
+            BASIC: 用户
+            LOCAL: 业务单元
+            DEEP: 部门
+            GLOBAL: 组织
+            SYSTEM: 系统
+            NONE: 无
+        organization:
+            access_denied: 你没有权限访问组织"%organization_name%"
+        permissions: 操作权限
+        field_acl:
+            is_enabled:
+                label:   字段级别ACL
+            show_restricted_fields:
+                label:   显示受保护的字段

@@ -1,0 +1,30 @@
+api_admin_update_user_profile:
+     path: '/profile'
+     methods: ["POST", "PUT"]
+     controller: 'ApiPlatform\Core\Action\PlaceholderAction'
+     defaults:
+          _api_resource_class: 'Pintushi\Bundle\UserBundle\Request\UpdateUserProfile'
+          _api_command_bus: 1
+          _api_collection_operation_name: 'post'
+
+pintushi_admin_user_all:
+    resource: "@PintushiUserBundle/Controller"
+    type: annotation
+
+api_admin_change_phone_number:
+     path: '/change/phone_number'
+     methods: ["POST", "PUT"]
+     controller: 'ApiPlatform\Core\Action\PlaceholderAction'
+     defaults:
+          _api_resource_class: 'Pintushi\Bundle\UserBundle\Request\ChangePhoneNumber'
+          _api_command_bus: 1
+          _api_collection_operation_name: 'post'
+
+api_admin_reset_password:
+     path: '/reset_password'
+     methods: ["POST", "PUT"]
+     controller: 'ApiPlatform\Core\Action\PlaceholderAction'
+     defaults:
+          _api_resource_class: 'Pintushi\Bundle\UserBundle\Request\ResetPassword'
+          _api_command_bus: 1
+          _api_collection_operation_name: 'post'

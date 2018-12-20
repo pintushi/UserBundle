@@ -1,0 +1,11 @@
+Pintushi\Bundle\UserBundle\Entity\Role:
+    attributes:
+        id:
+            groups: ['read']
+        label:
+            groups: ['read', 'write']
+        description:
+            groups: [ 'write', 'read']
+        role:
+            groups: [ 'write', 'read']
+

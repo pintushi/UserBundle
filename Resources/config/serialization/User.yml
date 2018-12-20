@@ -1,0 +1,36 @@
+Pintushi\Bundle\UserBundle\Entity\User:
+    attributes:
+        id:
+            groups: ['read', 'Details']
+        username:
+            groups: ['read', 'write']
+        fullName:
+            groups: ['Details']
+        firstName:
+            groups: ['write', 'read']
+        lastName:
+            groups: ['write', 'read']
+        avatar:
+            groups: ['write', 'read']
+        email:
+            groups: ['write']
+        plainPassword:
+            groups: [ 'write']
+        usernameCanonical:
+            groups: ['read']
+        phoneNumber:
+            groups: ['read']
+        emailCanonical:
+            groups: ['read']
+        enabled:
+            groups: ['read', 'write']
+        lastLogin:
+            groups: ['read']
+        expiresAt:
+            groups: ['read', 'write']
+        organization:
+            groups: ['read', 'write']
+            max_level: 1
+        owner:
+            groups: ['read', 'write']
+            max_level: 1

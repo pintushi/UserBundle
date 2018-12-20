@@ -1,0 +1,8 @@
+Pintushi\Bundle\UserBundle\Request\UpdateUserProfile:
+    attributes:
+        firstName:
+            groups: ['write']
+        lastName:
+            groups: ['write']
+        avatar:
+            groups: ['write']

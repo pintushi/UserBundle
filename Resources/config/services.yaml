@@ -1,0 +1,79 @@
+services:
+    _defaults:
+        autowire: true
+        autoconfigure: true
+        public: false
+        bind:
+            $userPrivileges: '%pintushi_user.privileges%'
+
+    Pintushi\Bundle\UserBundle\:
+        resource: '../../{Repository,DataFixtures,Command,Provider,Canonicalizer,Password,Handler,Validator/Constraints}'
+
+    Pintushi\Bundle\UserBundle\Controller\:
+        resource: '../../Controller'
+        tags: ['controller.service_arguments']
+
+    Pintushi\Bundle\UserBundle\EventListener\PasswordUpdaterListener:
+        arguments: ['@Pintushi\Bundle\UserBundle\Password\PasswordUpdater']
+        tags:
+          - { name: 'doctrine.event_listener', event: 'prePersist', lazy: true }
+          - { name: 'doctrine.event_listener', event: 'preUpdate', lazy: true }
+
+    Pintushi\Bundle\UserBundle\EventListener\CanonicalizerListener:
+        arguments: ['@Pintushi\Bundle\UserBundle\Canonicalizer\Canonicalizer']
+        tags:
+          - { name: 'doctrine.event_listener', event: 'prePersist', lazy: true }
+          - { name: 'doctrine.event_listener', event: 'preUpdate', lazy: true }
+
+    Pintushi\Bundle\UserBundle\EventListener\RoleListener:
+        arguments:
+            - '@pintushi_security.link.sid_manager'
+        tags:
+            - { name: doctrine.event_listener, event: preUpdate }
+            - { name: doctrine.event_listener, event: prePersist }
+
+    Pintushi\Bundle\UserBundle\EventListener\SelfDeleteListener:
+        arguments: ['@Pintushi\Bundle\SecurityBundle\Authentication\TokenAccessor']
+        tags:
+          - { name: 'doctrine.event_listener', event: 'preRemove', lazy: true }
+
+    pintushi.user_provider:
+        class: Pintushi\Bundle\UserBundle\Provider\UserNameProvider
+        autowire: false
+        autoconfigure: false
+        arguments:
+            - 'Pintushi\Bundle\UserBundle\Entity\User'
+            - '@Pintushi\Bundle\UserBundle\Repository\UserRepository'
+            - '@Pintushi\Bundle\UserBundle\Canonicalizer\Canonicalizer'
+
+    pintushi_user.form.handler.abstract.acl_role:
+        class: 'Pintushi\Bundle\UserBundle\Form\Handler\AclRoleHandler'
+        shared:  false
+        arguments:
+            - "@form.factory"
+            - "@security.acl.cache.doctrine"
+            - '%pintushi_user.privileges%'
+        calls:
+            - [setAclManager, ['@Pintushi\Bundle\SecurityBundle\Acl\Persistence\AclManager']]
+            - [setAclPrivilegeRepository, ["@pintushi_security.acl.privilege_repository"]]
+            - [setConfigurableName, ['default']]
+            - [setConfigurableFilter, ["@pintushi_security.filter.configurable_permission_filter"]]
+            - [setRequest, ["@=service('request_stack').getCurrentRequest()"]]
+            - [addExtensionFilter, ['action', '']]    # only default group actions are allowed
+
+    Pintushi\Bundle\UserBundle\Form\Handler\AclRoleHandler:
+        alias: 'pintushi_user.form.handler.abstract.acl_role'
+
+    Pintushi\Bundle\UserBundle\Provider\Privilege\RolePermissionProvider:
+        class: 'Pintushi\Bundle\UserBundle\Provider\Privilege\RolePermissionProvider'
+        arguments:
+            - '@translator'
+            - '@pintushi_security.acl.permission_manager'
+            - '@pintushi_user.form.handler.abstract.acl_role'
+            - '@Pintushi\Bundle\UserBundle\Provider\Privilege\RolePrivilegeCategoryProvider'
+            - '@pintushi_entity_config.config_manager'
+
+    pintushi_user.provider.privilege_category_provider:
+        class: 'Pintushi\Bundle\UserBundle\Provider\Privilege\PrivilegeCategoryProvider'
+        tags:
+            - { name: pintushi_user.privilege_category}

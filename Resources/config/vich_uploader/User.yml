@@ -1,0 +1,8 @@
+#Pintushi\Bundle\UserBundle\Entity\User:
+#    image:
+#        mapping: product_image        # required
+#        filename_property: imageName  # required
+#        size: imageSize
+#        mime_type: imageMimeType
+#        original_name: imageOriginalName
+#        dimensions: imageDimensions

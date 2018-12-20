@@ -1,0 +1,29 @@
+Pintushi\Bundle\UserBundle\Entity\Role:
+    collectionOperations:
+           post:
+               denormalization_context:
+                   groups: ["write"]
+               validation_groups: ["pintushi"]
+               access_control: is_granted('pintushi_role_create')
+               route_name: 'pintushi_user_role_create'
+           get:
+               access_control: is_granted('pintushi_role_view')
+    itemOperations:
+           put:
+               denormalization_context:
+                   groups: ["write"]
+               validation_groups: ["pintushi"]
+               access_control: is_granted('pintushi_role_edit', object)
+               route_name: 'pintushi_user_role_update'
+           get:
+               access_control: is_granted('pintushi_role_view', object)
+               route_name: 'pintushi_user_role_view'
+           delete:
+               access_control: is_granted('pintushi_role_delete', object)
+    attributes:
+        normalization_context:
+             groups: ["read"]
+        denormalization_context:
+           groups: ["write"]
+        validation_groups:  ["pintushi"]
+        route_prefix: /admin

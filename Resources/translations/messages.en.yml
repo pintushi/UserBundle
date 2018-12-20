@@ -1,0 +1,34 @@
+(default): Default permission on entities
+VIEW: View
+CREATE: Create
+EDIT: Edit
+DELETE: Delete
+ASSIGN: Assign
+"view %entityName%": "View %entityName%"
+"view %fieldName% not granted": "You don't have permissions to view %fieldName%"
+
+pintushi:
+    security:
+        access_level:
+            BASIC: User
+            LOCAL: Business Unit
+            DEEP: Division
+            GLOBAL: Global
+            SYSTEM: Global
+            NONE: None
+        organization:
+            access_denied: You don't have access to organization "%organization_name%"
+        permissions: Action Permissions
+        field_acl:
+            is_enabled:
+                label:   Field Level ACL
+                tooltip: Enables Field level access check for entity
+            show_restricted_fields:
+                label:   Show restricted
+                tooltip: If Field Level ACL enabled and user have no access to field, on create and edit pages this field will be shown as disabled field.
+    user:
+        entity_label: 用户
+        role:
+            entity_label: 角色
+    group:
+        entity_label: 组

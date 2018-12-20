@@ -1,0 +1,6 @@
+Pintushi\Bundle\UserBundle\Request\ChangePhoneNumber:
+    attributes:
+        phoneNumber:
+            groups: ['write']
+        code:
+            groups: ['write']
