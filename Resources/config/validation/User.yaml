@@ -2,15 +2,18 @@ Pintushi\Bundle\UserBundle\Entity\User:
   constraints:
       - Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity:  { groups: ['pintushi'], fields: ['username'], message: '登录名已存在'}
       - Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity:  { groups: ['pintushi'], fields: ['email'], message: '邮箱已存在'}
+      - Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity:  { groups: ['pintushi'], fields: ['phoneNumber'], message: '手机号已存在'}
   properties:
       username:
-          - NotBlank: { groups: ['add_user'] }
+          - NotBlank: { groups: ['pintushi_user_create'] }
+      phoneNumber:
+          - NotBlank: { groups: ['pintushi_user_create'] }
       email:
-          - NotBlank: { groups: ['add_user'] }
+          - NotBlank: { groups: ['pintushi_user_create'] }
       plainPassword:
-          - NotBlank: { groups: ['add_user'] }
+          - NotBlank: { groups: ['pintushi_user_create'] }
           - Rollerworks\Component\PasswordStrength\Validator\Constraints\PasswordStrength:
                 minLength: 6
                 minStrength: 3
-                groups: ['add_user']
+                groups: ['AddUser']
                 message: '至少6个字符，且需包括大小写，特殊字符'

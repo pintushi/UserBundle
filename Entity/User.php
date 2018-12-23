@@ -5,7 +5,6 @@ namespace Pintushi\Bundle\UserBundle\Entity;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Symfony\Component\Security\Core\Role\Role;
-
 use Pintushi\Bundle\OrganizationBundle\Entity\OrganizationInterface;
 use Pintushi\Bundle\OrganizationBundle\Entity\BusinessUnitInterface;
 use Pintushi\Bundle\OrganizationBundle\Entity\Ownership\BusinessUnitAwareTrait;

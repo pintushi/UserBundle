@@ -6,7 +6,7 @@ use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Symfony\Component\Security\Core\Role\Role;
 use Pintushi\Bundle\OrganizationBundle\Entity\OrganizationInterface;
-use Pintushi\Bundle\FileBundle\Annotation as FileAnnoation;
+use Videni\Bundle\FileBundle\Annotation as FileAnnoation;
 
 /**
  * @FileAnnoation\File()
