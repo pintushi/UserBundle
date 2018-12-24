@@ -25,6 +25,13 @@ abstract class UserType extends AbstractType
             ->add('email', EmailType::class)
             ->add('plainPassword', PasswordType::class)
             ->add('enabled', CheckboxType::class)
+            ->add('gender', FormTypes\ChoiceType::class, [
+                'choices'=>[
+                    '男' => UserInterface::MALE_GENDER,
+                    '女' => UserInterface::FEMALE_GENDER,
+                    '未知' => UserInterface::UNKNOWN_GENDER,
+                ],
+            ])
         ;
     }
 }

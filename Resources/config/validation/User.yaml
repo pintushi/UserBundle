@@ -3,6 +3,7 @@ Pintushi\Bundle\UserBundle\Entity\User:
       - Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity:  { groups: ['pintushi'], fields: ['username'], message: '登录名已存在'}
       - Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity:  { groups: ['pintushi'], fields: ['email'], message: '邮箱已存在'}
       - Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity:  { groups: ['pintushi'], fields: ['phoneNumber'], message: '手机号已存在'}
+      - Pintushi\Bundle\OrganizationBundle\Validator\Constraints\Owner: { groups: ['pintushi']}
   properties:
       username:
           - NotBlank: { groups: ['pintushi_user_create'] }

@@ -3,14 +3,14 @@
 namespace Pintushi\Bundle\UserBundle\Repository;
 
 use Pintushi\Bundle\UserBundle\Entity\User;
-use Pintushi\Bundle\CoreBundle\Doctrine\ORM\EntityRepository;
+use Pintushi\Bundle\CoreBundle\Doctrine\ORM\ServiceEntityRepository;
 use Doctrine\Common\Persistence\ManagerRegistry;
 use Doctrine\ORM\Query;
 use Pagerfanta\Adapter\DoctrineORMAdapter;
 use Pagerfanta\Pagerfanta;
 use Pintushi\Bundle\UserBundle\Entity\UserOAuth;
 
-class UserOAuthRepository extends EntityRepository
+class UserOAuthRepository extends ServiceEntityRepository
 {
     public function __construct(ManagerRegistry $registry)
     {
