@@ -67,6 +67,7 @@ abstract class RolePrivilegeAbstractProvider
     protected function preparePrivileges(AbstractRole $role, $type)
     {
         $allPrivileges = [];
+
         /**
          * @var string $type
          * @var ArrayCollection $sortedPrivileges

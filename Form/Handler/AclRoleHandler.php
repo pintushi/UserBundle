@@ -3,14 +3,7 @@
 namespace Pintushi\Bundle\UserBundle\Form\Handler;
 
 use Doctrine\Common\Collections\ArrayCollection;
-use Doctrine\Common\Persistence\ManagerRegistry;
-use Doctrine\Common\Persistence\ObjectManager;
-use Doctrine\Common\Util\ClassUtils;
-use Symfony\Component\Form\FormFactory;
-use Symfony\Component\Form\FormInterface;
-use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Security\Acl\Model\AclCacheInterface;
-
 use Pintushi\Bundle\SecurityBundle\Acl\Group\AclGroupProviderInterface;
 use Pintushi\Bundle\SecurityBundle\Acl\Permission\ConfigurablePermissionProvider;
 use Pintushi\Bundle\SecurityBundle\Acl\Persistence\AclManager;
@@ -20,37 +13,9 @@ use Pintushi\Bundle\SecurityBundle\Model\AclPermission;
 use Pintushi\Bundle\SecurityBundle\Model\AclPrivilege;
 use Pintushi\Bundle\SecurityBundle\Model\AclPrivilegeIdentity;
 use Pintushi\Bundle\UserBundle\Entity\AbstractRole;
-use Pintushi\Bundle\UserBundle\Entity\AbstractUser;
-use Pintushi\Bundle\UserBundle\Entity\User;
-use Pintushi\Bundle\UserBundle\Form\Type\AclRoleType;
 
-/**
- * @SuppressWarnings(PHPMD.ExcessiveClassComplexity)
- */
 class AclRoleHandler
 {
-    /**
-     * @var Request
-     */
-    protected $request;
-
-    /**
-     * @var FormFactory
-     */
-    protected $formFactory;
-
-    /**
-     * @var FormInterface
-     */
-    protected $form;
-
-    /**
-     * @var ObjectManager
-     *
-     * @deprecated since 1.8
-     */
-    protected $manager;
-
     /**
      * @var AclManager
      */
@@ -79,7 +44,7 @@ class AclRoleHandler
     protected $extensionFilters = [];
 
     /** @var string */
-    protected $configurableName;
+    protected $configurableName = ConfigurablePermissionProvider::DEFAULT_CONFIGURABLE_NAME;
 
     /** @var AclPrivilegeConfigurableFilter */
     protected $configurableFilter;
@@ -89,13 +54,16 @@ class AclRoleHandler
      * @param AclCacheInterface $aclCache
      * @param array $privilegeConfig
      */
-    public function __construct(FormFactory $formFactory, AclCacheInterface $aclCache, array $privilegeConfig, ObjectManager $manager)
-    {
-        $this->formFactory = $formFactory;
+    public function __construct(
+        AclCacheInterface $aclCache,
+        AclPrivilegeRepository $privilegeRepository,
+        array $privilegeConfig
+    )  {
         $this->aclCache = $aclCache;
+        $this->privilegeRepository = $privilegeRepository;
         $this->privilegeConfig = $privilegeConfig;
-        $this->configurableName = ConfigurablePermissionProvider::DEFAULT_CONFIGURABLE_NAME;
-        $this->manager = $manager;
+
+        $this->loadPrivilegeConfigPermissions();
     }
 
     /**
@@ -104,22 +72,6 @@ class AclRoleHandler
     public function setAclManager(AclManager $aclManager)
     {
         $this->aclManager = $aclManager;
-    }
-
-    /**
-     * @param AclPrivilegeRepository $privilegeRepository
-     */
-    public function setAclPrivilegeRepository(AclPrivilegeRepository $privilegeRepository)
-    {
-        $this->privilegeRepository = $privilegeRepository;
-    }
-
-    /**
-     * @param Request $request
-     */
-    public function setRequest(Request $request)
-    {
-        $this->request = $request;
     }
 
     /**
@@ -154,22 +106,6 @@ class AclRoleHandler
     }
 
     /**
-     * Create form for role manipulation
-     *
-     * @param AbstractRole $role
-     *
-     * @return FormInterface
-     */
-    public function createForm(AbstractRole $role)
-    {
-        $this->loadPrivilegeConfigPermissions();
-
-        $this->form = $this->createRoleFormInstance($role, $this->privilegeConfig);
-
-        return $this->form;
-    }
-
-    /**
      * Load privilege config permissions
      */
     protected function loadPrivilegeConfigPermissions()
@@ -178,59 +114,6 @@ class AclRoleHandler
             $this->privilegeConfig[$configName]['permissions']
                 = $this->privilegeRepository->getPermissionNames($config['types']);
         }
-    }
-
-    /**
-     * @param AbstractRole $role
-     * @param array $privilegeConfig
-     * @return FormInterface
-     */
-    protected function createRoleFormInstance(AbstractRole $role, array $privilegeConfig)
-    {
-        return $this->formFactory->createNamed(
-            '',
-            AclRoleType::class,
-            $role,
-            [
-                'csrf_protection' => false
-            ]
-        );
-    }
-
-    /**
-     * Save role
-     *
-     * @param AbstractRole $role
-     *
-     * @return bool
-     */
-    public function process(AbstractRole $role)
-    {
-        if (in_array($this->request->getMethod(), ['POST', 'PUT'])) {
-            if ($this->form->handleRequest($this->request) && $this->form->isSubmitted() && $this->form->isValid()) {
-                $this->processPrivileges($role);
-
-                $this->manager->persist($role);
-                $this->manager->flush();
-
-                return true;
-            }
-        } else {
-            $formPrivileges = $this->prepareRolePrivileges($role);
-            $this->form->get('privileges')->setData(json_encode($formPrivileges));
-        }
-
-        return false;
-    }
-
-    /**
-     * Create form view for current form
-     *
-     * @return \Symfony\Component\Form\FormView
-     */
-    public function createView()
-    {
-        return $this->form->createView();
     }
 
     /**
@@ -252,25 +135,6 @@ class AclRoleHandler
         }
 
         return $allPrivileges;
-    }
-
-    /**
-     * @param AbstractRole $role
-     *
-     * @return array
-     */
-    protected function prepareRolePrivileges(AbstractRole $role)
-    {
-        $allPrivileges = [];
-        /**
-         * @var string $fieldName
-         * @var ArrayCollection|AclPrivilege[] $sortedPrivileges
-         */
-        foreach ($this->getAllPrivileges($role) as $fieldName => $sortedPrivileges) {
-            $allPrivileges = array_merge($allPrivileges, $sortedPrivileges->toArray());
-        }
-
-        return $this->encodeAclPrivileges($allPrivileges);
     }
 
     /**
@@ -313,13 +177,12 @@ class AclRoleHandler
     /**
      * @param AbstractRole $role
      */
-    protected function processPrivileges(AbstractRole $role)
+    public function processPrivileges(AbstractRole $role, array $privileges)
     {
-        $decodedPrivileges = json_decode($this->form->get('privileges')->getData(), true);
         $formPrivileges = [];
         foreach ($this->privilegeConfig as $fieldName => $config) {
-            if (array_key_exists($fieldName, $decodedPrivileges)) {
-                $privilegesArray = $decodedPrivileges[$fieldName];
+            if (array_key_exists($fieldName, $privileges)) {
+                $privilegesArray = $privileges[$fieldName];
                 $formPrivileges = array_merge($formPrivileges, $this->decodeAclPrivileges($privilegesArray, $config));
             }
         }
@@ -440,7 +303,7 @@ class AclRoleHandler
      *
      * @return array|AclPrivilege[]
      */
-    protected function decodeAclPrivileges($privilegesArray, $config)
+    protected function decodeAclPrivileges(array $privilegesArray, array $config)
     {
         $privileges = [];
         foreach ($privilegesArray as $privilege) {

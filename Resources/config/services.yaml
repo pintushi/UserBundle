@@ -48,15 +48,13 @@ services:
         class: 'Pintushi\Bundle\UserBundle\Form\Handler\AclRoleHandler'
         shared:  false
         arguments:
-            - "@form.factory"
             - "@security.acl.cache.doctrine"
+            - "@pintushi_security.acl.privilege_repository"
             - '%pintushi_user.privileges%'
         calls:
             - [setAclManager, ['@Pintushi\Bundle\SecurityBundle\Acl\Persistence\AclManager']]
-            - [setAclPrivilegeRepository, ["@pintushi_security.acl.privilege_repository"]]
             - [setConfigurableName, ['default']]
             - [setConfigurableFilter, ["@pintushi_security.filter.configurable_permission_filter"]]
-            - [setRequest, ["@=service('request_stack').getCurrentRequest()"]]
             - [addExtensionFilter, ['action', '']]    # only default group actions are allowed
 
     Pintushi\Bundle\UserBundle\Form\Handler\AclRoleHandler:
