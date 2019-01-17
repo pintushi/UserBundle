@@ -35,13 +35,13 @@ class PrivilegeCategory
      * @param bool $tab
      * @param int $priority
      */
-    public function __construct($id, $label, $tab, $priority)
+    public function __construct($id, $label, $tab, $priority, $visible = true)
     {
         $this->id = $id;
         $this->label = $label;
         $this->tab = $tab;
         $this->priority = $priority;
-        $this->visible = true;
+        $this->visible = $visible;
     }
 
     /**
