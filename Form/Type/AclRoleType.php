@@ -57,12 +57,8 @@ class AclRoleType extends AbstractType
 
         $organization = $this->tokenAccessor->getOrganization();
 
-        $constraints = [!$organization->isGlobal() ? new NotBlank(): null];
-
         if ($this->authorizationChecker->isGranted('VIEW', 'entity:'. Organization::class)) {
-            $builder->add('organization', TextType::class, [
-                'constraints' => $constraints,
-            ]);
+            $builder->add('organization', TextType::class);
             $builder->get('organization')->addModelTransformer(new EntityToIdTransformer($this->doctrineHelper->getEntityManager(Organization::class), Organization::class));
         } else {
             $builder->add('organization', EntityType::class, [
@@ -76,7 +72,6 @@ class AclRoleType extends AbstractType
                     return $qb;
                 },
                 'mapped'               => true,
-                'constraints'          => $constraints,
             ]);
         }
 
@@ -91,6 +86,8 @@ class AclRoleType extends AbstractType
                 $this->tokenAccessor->getOrganization()
             )
         );
+
+        $builder->addEventListener(FormEvents::POST_SUBMIT, [$this, 'onPostSubmit'], 128);
     }
 
     /**
@@ -103,5 +100,18 @@ class AclRoleType extends AbstractType
                 'data_class' => Role::class,
             ]
         );
+    }
+
+     /**
+     * @param FormEvent $event
+     */
+    public function onPostSubmit(FormEvent $event)
+    {
+        $data = $event->getForm()->getData();
+
+        $userOrganization = $this->tokenAccessor->getOrganization();
+        if(!$userOrganization->isGlobal() && !$data->getOrganization()){
+            $data->setOrganization($userOrganization);
+        }
     }
 }
