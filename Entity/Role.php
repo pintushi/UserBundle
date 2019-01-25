@@ -32,6 +32,8 @@ class Role extends AbstractRole
 
     protected $users;
 
+    protected $organization;
+
     /**
      * @var string
      */
@@ -190,5 +192,25 @@ class Role extends AbstractRole
         } else {
             list($this->id, $this->role, $this->label) = unserialize($serialized);
         }
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getOrganization()
+    {
+        return $this->organization;
+    }
+
+    /**
+     * @param mixed $organization
+     *
+     * @return self
+     */
+    public function setOrganization($organization)
+    {
+        $this->organization = $organization;
+
+        return $this;
     }
 }

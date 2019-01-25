@@ -14,5 +14,6 @@
         <field name="description" type="text" nullable="true"/>
 
         <many-to-many target-entity="Pintushi\Bundle\UserBundle\Entity\User" field="users" mapped-by="roles"/>
+        <many-to-one target-entity="Pintushi\Bundle\OrganizationBundle\Entity\Organization" field="organization"/>
     </entity>
 </doctrine-mapping>
