@@ -5,7 +5,7 @@ use Doctrine\ORM\EntityRepository;
 use Doctrine\ORM\QueryBuilder;
 use Videni\Bundle\RestBundle\Doctrine\ORM\ServiceEntityRepository;
 use Doctrine\Common\Persistence\ManagerRegistry;
-
+use Pintushi\Bundle\OrganizationBundle\Entity\Organization;
 use Pintushi\Bundle\UserBundle\Entity\Role;
 use Pintushi\Bundle\UserBundle\Entity\User;
 
@@ -61,5 +61,16 @@ class RoleRepository extends ServiceEntityRepository
             ->setMaxResults(1)
             ->getQuery()
             ->getOneOrNullResult();
+    }
+
+    public function createOrganizationQueryBuilder(Organization $organization)
+    {
+        $qb = $this->createQueryBuilder('o');
+
+        if (!$organization->isGlobal()) {
+            $qb->andWhere($qb->expr()->in('IDENTITY(o.organization)', [$organization->getId(), null]));
+        }
+
+        return $qb;
     }
 }
