@@ -20,6 +20,7 @@ use Symfony\Component\PropertyAccess\PropertyAccessor;
 use Pintushi\Bundle\SecurityBundle\ORM\DoctrineHelper;
 use Symfony\Component\Validator\Constraints\NotBlank;
 use Pintushi\Bundle\OrganizationBundle\Form\EventListener\OwnerFormSubscriber;
+use Pintushi\Bundle\OrganizationBundle\Form\Type\OrganizationSelectType;
 
 class AclRoleType extends AbstractType
 {
@@ -58,8 +59,7 @@ class AclRoleType extends AbstractType
         $organization = $this->tokenAccessor->getOrganization();
 
         if ($this->authorizationChecker->isGranted('VIEW', 'entity:'. Organization::class)) {
-            $builder->add('organization', TextType::class);
-            $builder->get('organization')->addModelTransformer(new EntityToIdTransformer($this->doctrineHelper->getEntityManager(Organization::class), Organization::class));
+            $builder->add('organization', OrganizationSelectType::class);
         } else {
             $builder->add('organization', EntityType::class, [
                 'class'                => Organization::class,
