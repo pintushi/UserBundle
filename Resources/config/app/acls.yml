@@ -1,28 +1,4 @@
-acls:
-    pintushi_role_create:
-        type: entity
-        class: Pintushi\Bundle\UserBundle\Entity\Role
-        label: '创建角色'
-        permission: 'CREATE'
-        category: "role"
+imports:
+    - { resource: 'acls/User.yaml' }
+    - { resource: 'acls/Group.yaml' }
 
-    pintushi_role_view:
-        type: entity
-        class: Pintushi\Bundle\UserBundle\Entity\Role
-        label: '查看角色'
-        permission: 'VIEW'
-        category: "role"
-
-    pintushi_role_delete:
-        type: entity
-        class: Pintushi\Bundle\UserBundle\Entity\Role
-        label: '查看角色'
-        permission: 'DELETE'
-        category: "role"
-
-    pintushi_role_edit:
-        type: entity
-        class: Pintushi\Bundle\UserBundle\Entity\Role
-        label: '编辑角色'
-        permission: 'EDIT'
-        category: "role"

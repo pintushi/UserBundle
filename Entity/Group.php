@@ -5,7 +5,7 @@ namespace Pintushi\Bundle\UserBundle\Entity;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
-
+use Videni\Bundle\RestBundle\Model\ResourceInterface;
 use Pintushi\Bundle\EntityConfigBundle\Metadata\Annotation\Config;
 use Pintushi\Bundle\EntityConfigBundle\Metadata\Annotation\ConfigField;
 use Pintushi\Bundle\OrganizationBundle\Entity\BusinessUnit;
@@ -30,7 +30,7 @@ use Pintushi\Bundle\OrganizationBundle\Entity\Organization;
  *      }
  * )
  */
-class Group
+class Group implements ResourceInterface
 {
     protected $id;
 

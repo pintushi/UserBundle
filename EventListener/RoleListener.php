@@ -7,9 +7,9 @@ use Doctrine\ORM\Event\LifecycleEventArgs;
 use Doctrine\ORM\Event\PreUpdateEventArgs;
 use Pintushi\Component\DependencyInjection\ServiceLink;
 use Symfony\Component\Security\Core\Role\RoleInterface;
-
 use Pintushi\Bundle\SecurityBundle\Acl\Persistence\AclSidManager;
 use Pintushi\Bundle\UserBundle\Entity\AbstractRole;
+use Pintushi\Bundle\UserBundle\Entity\Role;
 
 class RoleListener
 {
@@ -56,7 +56,7 @@ class RoleListener
              * count of attempts to set unique role, maximum 10 else exception
              */
             $count = 1;
-            $repository = $args->getEntityManager()->getRepository('PintushiUserBundle:Role');
+            $repository = $args->getEntityManager()->getRepository(Role::class);
             do {
                 $updateRequired = !$this->updateRole($entity, $repository) && $count < 10;
                 $count++;

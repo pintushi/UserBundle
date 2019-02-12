@@ -3,7 +3,7 @@
 <doctrine-mapping xmlns="http://doctrine-project.org/schemas/orm/doctrine-mapping"
                   xmlns:gedmo="http://gediminasm.org/schemas/orm/doctrine-extensions-mapping">
 
-    <entity name="Pintushi\Bundle\UserBundle\Entity\User" table="pintushi_user">
+    <mapped-superclass name="Pintushi\Bundle\UserBundle\Entity\User" table="pintushi_user">
         <id name="id" column="id" type="integer">
             <generator strategy="AUTO" />
         </id>
@@ -84,7 +84,5 @@
                 </inverse-join-columns>
             </join-table>
         </many-to-many>
-
-    </entity>
-
+    </mapped-superclass>
 </doctrine-mapping>

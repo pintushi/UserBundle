@@ -10,6 +10,7 @@ use Pintushi\Bundle\OrganizationBundle\Entity\BusinessUnitInterface;
 use Pintushi\Bundle\OrganizationBundle\Entity\Ownership\BusinessUnitAwareTrait;
 use Pintushi\Bundle\EntityConfigBundle\Metadata\Annotation\Config;
 use Pintushi\Bundle\OrganizationBundle\Entity\OrganizationAwareInterface;
+use Videni\Bundle\RestBundle\Model\ResourceInterface;
 
 /**
  * @Config(
@@ -29,7 +30,7 @@ use Pintushi\Bundle\OrganizationBundle\Entity\OrganizationAwareInterface;
  *      }
  * )
  */
-class User extends AbstractUser implements OrganizationAwareUserInterface
+class User extends AbstractUser implements OrganizationAwareUserInterface, ResourceInterface
 {
     use BusinessUnitAwareTrait {
         setOrganization as oldSetOrganization;

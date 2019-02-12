@@ -4,6 +4,7 @@ namespace Pintushi\Bundle\UserBundle\Entity;
 
 use Pintushi\Bundle\EntityConfigBundle\Metadata\Annotation\Config;
 use Doctrine\Common\Collections\ArrayCollection;
+use Videni\Bundle\RestBundle\Model\ResourceInterface;
 
 /**
  * @Config(
@@ -16,7 +17,7 @@ use Doctrine\Common\Collections\ArrayCollection;
  *      }
  * )
  */
-class Role extends AbstractRole
+class Role extends AbstractRole implements ResourceInterface
 {
     const PREFIX_ROLE = 'ROLE_';
 
