@@ -1,0 +1,24 @@
+{
+    "name": "pintushi/user-bundle",
+    "type": "symfony-bundle",
+    "description": "Pintushi User Bundle",
+    "keywords": ["User"],
+    "license": "MIT",
+    "require": {
+        "php": "^7.1",
+        "symfony/symfony": "^4.0",
+        "rollerworks/password-strength-bundle": "^2.0",
+        "lexik/jwt-authentication-bundle": "^2.0@dev",
+        "pintushi/organization-bundle": "^1.0@dev",
+        "pintushi/security-bundle": "^1.0@dev"
+    },
+    "autoload": {
+        "psr-0": { "Pintushi\\Bundle\\UserBundle": "" }
+    },
+    "target-dir": "Pintushi/Bundle/UserBundle",
+    "extra": {
+        "branch-alias": {
+            "dev-master": "1.0-dev"
+        }
+    }
+}
