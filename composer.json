@@ -10,7 +10,8 @@
         "rollerworks/password-strength-bundle": "^2.0",
         "lexik/jwt-authentication-bundle": "^2.0@dev",
         "pintushi/organization-bundle": "^1.0@dev",
-        "pintushi/security-bundle": "^1.0@dev"
+        "pintushi/security-bundle": "^1.0@dev",
+        "pintushi/form-bundle": "^1.0@dev"
     },
     "autoload": {
         "psr-0": { "Pintushi\\Bundle\\UserBundle": "" }

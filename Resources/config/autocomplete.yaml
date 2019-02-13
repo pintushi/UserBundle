@@ -1,0 +1,22 @@
+services:
+    pintushi_user.autocomplete.user.search_acl_handler:
+        parent: pintushi_user.autocomplete.user.search_acl_handler.abstract
+        calls:
+            - [ setProperties, [["id", "username", "firstName", "lastName", "email"]] ]
+        tags:
+            - { name: pintushi_form.autocomplete.search_handler, alias: acl_users }
+        lazy: true
+
+    pintushi_user.autocomplete.user.search_acl_handler.abstract:
+        abstract: true
+        class: Pintushi\Bundle\UserBundle\Autocomplete\UserAclHandler
+        arguments:
+            - '@doctrine.orm.entity_manager'
+            - '%videni_rest.entity.user.class%'
+            - '@security.authorization_checker'
+            - '@pintushi_security.token_accessor'
+            - '@pintushi_security.ownership_tree_provider'
+            - '@Pintushi\Bundle\EntityBundle\Tools\EntityClassNameHelper'
+            - "@?security.acl.voter.basic_permissions"
+        calls:
+            - [ setEntityNameResolver, ['@Pintushi\Bundle\EntityBundle\Provider\EntityNameResolver']]

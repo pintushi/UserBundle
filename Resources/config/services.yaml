@@ -1,8 +1,13 @@
+imports:
+    - { resource: autocomplete.yaml }
+
 services:
     _defaults:
         autowire: true
         autoconfigure: true
         public: false
+        bind:
+            $userPrivileges: '%pintushi_user.privileges%'
 
     Pintushi\Bundle\UserBundle\:
         resource: '../../{Repository,DataFixtures,Command,Provider,Canonicalizer,Password,Handler,Validator/Constraints}'

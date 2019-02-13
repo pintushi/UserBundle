@@ -1,4 +1,5 @@
 imports:
     - { resource: 'acls/User.yaml' }
     - { resource: 'acls/Group.yaml' }
+    - { resource: 'acls/Role.yaml' }
 

@@ -1,26 +1,26 @@
 acls:
-    pintushi_group_create:
+    pintushi_user_group_create:
         type: entity
         class: Pintushi\Bundle\UserBundle\Entity\Group
         label: '创建组'
         permission: 'CREATE'
         category: "group"
 
-    pintushi_group_view:
+    pintushi_user_group_view:
         type: entity
         class: Pintushi\Bundle\UserBundle\Entity\Group
         label: '查看组'
         permission: 'VIEW'
         category: "group"
 
-    pintushi_group_delete:
+    pintushi_user_group_delete:
         type: entity
         class: Pintushi\Bundle\UserBundle\Entity\Group
         label: '查看组'
         permission: 'DELETE'
         category: "group"
 
-    pintushi_group_edit:
+    pintushi_user_group_edit:
         type: entity
         class: Pintushi\Bundle\UserBundle\Entity\Group
         label: '编辑组'
