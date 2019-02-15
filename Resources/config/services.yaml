@@ -78,3 +78,5 @@ services:
         class: 'Pintushi\Bundle\UserBundle\Provider\Privilege\PrivilegeCategoryProvider'
         tags:
             - { name: pintushi_user.privilege_category}
+
+    Pintushi\Bundle\UserBundle\Security\UserChecker: ~

@@ -117,4 +117,7 @@ interface UserInterface extends
      * @return static
      */
     public function setLastLogin(\DateTime $time = null);
+
+
+    public function isAccountNonExpired(): bool;
 }
