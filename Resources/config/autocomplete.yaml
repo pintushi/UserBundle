@@ -12,7 +12,7 @@ services:
         class: Pintushi\Bundle\UserBundle\Autocomplete\UserAclHandler
         arguments:
             - '@doctrine.orm.entity_manager'
-            - '%videni_rest.entity.user.class%'
+            - '%pintushi.entity.user.class%'
             - '@security.authorization_checker'
             - '@pintushi_security.token_accessor'
             - '@pintushi_security.ownership_tree_provider'
