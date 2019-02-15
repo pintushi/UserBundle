@@ -45,8 +45,8 @@ services:
         autowire: false
         autoconfigure: false
         arguments:
-            - 'Pintushi\Bundle\UserBundle\Entity\User'
-            - '@Pintushi\Bundle\UserBundle\Repository\UserRepository'
+            - '%pintushi.entity.user.class%'
+            - '@pintushi.repository.user'
             - '@Pintushi\Bundle\UserBundle\Canonicalizer\Canonicalizer'
 
     pintushi_user.form.handler.abstract.acl_role:
