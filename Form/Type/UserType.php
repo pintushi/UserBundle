@@ -13,13 +13,16 @@ use Pintushi\Bundle\OrganizationBundle\Entity\Organization;
 use Symfony\Component\Security\Core\Authorization\AuthorizationCheckerInterface;
 use Pintushi\Bundle\OrganizationBundle\Form\Type\OrganizationsSelectType;
 use Doctrine\ORM\EntityRepository;
+use Videni\Bundle\RestBundle\Form\Type\AbstractResourceType;
 
-class UserType extends AbstractType
+class UserType extends AbstractResourceType
 {
     private $authorizationChecker;
 
-    public function __construct(AuthorizationCheckerInterface $authorizationChecker)
+    public function __construct(string $dataClass, array $validationGroups = [], AuthorizationCheckerInterface $authorizationChecker)
     {
+        parent::__construct($dataClass, $validationGroups);
+
         $this->authorizationChecker = $authorizationChecker;
     }
 

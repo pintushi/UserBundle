@@ -1,0 +1,19 @@
+services:
+    _defaults:
+        autowire: true
+        autoconfigure: true
+        public: false
+
+    Pintushi\Bundle\UserBundle\Form\Type\AclRoleType: ~
+
+    Pintushi\Bundle\UserBundle\Form\Type\GroupType: ~
+
+    Pintushi\Bundle\UserBundle\Form\Type\UserType:
+        arguments:
+            - 'videni_rest.entity.user.class'
+            - []
+
+    Pintushi\Bundle\UserBundle\Form\Type\UserProfileType: ~
+        arguments:
+            - 'videni_rest.entity.user.class'
+            - []
