@@ -13,7 +13,6 @@ use Pintushi\Bundle\OrganizationBundle\Entity\Organization;
 
 /**
  * @Config(
- *      routeName="pintushi_user_group_index",
  *      defaultValues={
  *          "ownership"={
  *              "owner_type"="BUSINESS_UNIT",

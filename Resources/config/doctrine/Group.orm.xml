@@ -14,7 +14,6 @@
         </unique-constraints>
         <field name="name" length="30" nullable="false"/>
 
-
         <many-to-many target-entity="Pintushi\Bundle\UserBundle\Entity\Role" field="roles">
             <join-table name="pintushi_user_access_group_role">
                 <join-columns>
