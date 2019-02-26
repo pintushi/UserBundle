@@ -5,7 +5,7 @@ namespace Pintushi\Bundle\UserBundle\EventListener;
 use Doctrine\Common\Persistence\ObjectRepository;
 use Doctrine\ORM\Event\LifecycleEventArgs;
 use Doctrine\ORM\Event\PreUpdateEventArgs;
-use Pintushi\Component\DependencyInjection\ServiceLink;
+use Oro\Component\DependencyInjection\ServiceLink;
 use Symfony\Component\Security\Core\Role\RoleInterface;
 use Pintushi\Bundle\SecurityBundle\Acl\Persistence\AclSidManager;
 use Pintushi\Bundle\UserBundle\Entity\AbstractRole;

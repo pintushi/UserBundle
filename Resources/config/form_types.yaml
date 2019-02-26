@@ -10,10 +10,10 @@ services:
 
     Pintushi\Bundle\UserBundle\Form\Type\UserType:
         arguments:
-            - 'pintushi.entity.user.class'
+            - 'pintushi_user.entity.user.class'
             - []
 
     Pintushi\Bundle\UserBundle\Form\Type\UserProfileType: ~
         arguments:
-            - 'pintushi.entity.user.class'
+            - 'pintushi_user.entity.user.class'
             - []

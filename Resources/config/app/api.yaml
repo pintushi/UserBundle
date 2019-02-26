@@ -1,0 +1,40 @@
+api:
+    resources:
+        Pintushi\Bundle\UserBundle\Entity\User:
+            scope: pintushi_user
+            normalization_context:
+                groups: ['User']
+            route_prefix: /admin
+            validation_groups: ['pintushi']
+            form: 'Pintushi\Bundle\UserBundle\Form\Type\UserType'
+            operations:
+                create:
+                    action: create
+                    path: '/users/create'
+                    methods: ['GET', 'POST']
+                    validation_groups: ['pintushi', 'pintushi_user_create']
+                    access_control: is_granted('pintushi_user_create')
+                delete:
+                    action: delete
+                    access_control: is_granted('pintushi_user_delete', object)
+                update:
+                    action: update
+                    path: '/users/update'
+                    methods: ['GET', 'POST']
+                    access_control: is_granted('pintushi_user_edit', object)
+                view:
+                    action: view
+                    access_control: is_granted('pintushi_user_view')
+                get_user_profile:
+                    action: view
+                    path: '/profile'
+                    resource_provider: App\ResourceProvider\GetUserProfile
+                update_user_profile:
+                    action: update
+                    path: '/profile'
+                    form: 'App\Form\Type\UserProfileType'
+                    resource_provider: App\ResourceProvider\GetUserProfile
+                index:
+                    action: index
+                    access_control: is_granted('pintushi_user_view')
+                    acl_enabled: true
