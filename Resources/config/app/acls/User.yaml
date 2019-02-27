@@ -1,26 +1,26 @@
 acls:
-    pintushi_user_create:
+    pintushi_user_user_create:
         type: entity
         class: Pintushi\Bundle\UserBundle\Entity\User
         label: '创建用户'
         permission: 'CREATE'
         category: "user"
 
-    pintushi_user_view:
+    pintushi_user_user_view:
         type: entity
         class: Pintushi\Bundle\UserBundle\Entity\User
         label: '查看用户'
         permission: 'VIEW'
         category: "user"
 
-    pintushi_user_delete:
+    pintushi_user_user_delete:
         type: entity
         class: Pintushi\Bundle\UserBundle\Entity\User
         label: '查看用户'
         permission: 'DELETE'
         category: "user"
 
-    pintushi_user_edit:
+    pintushi_user_user_edit:
         type: entity
         class: Pintushi\Bundle\UserBundle\Entity\User
         label: '编辑用户'

@@ -1,0 +1,130 @@
+grids:
+    users-grid:
+        extended_entity_name: '%pintushi_user.entity.user.class%'
+        options:
+            entityHint: users
+            entity_pagination: true
+            mass_actions:
+                delete:
+                    enabled: false
+        acl_resource: pintushi_user_user_view
+        entity_config_rule: 'user_entity_grid_config_rule'
+        source:
+            type: orm
+            query:
+                select:
+                    - u.id
+                    - u.username
+                    - u.email
+                    - u.firstName
+                    - u.lastName
+                    - u.createdAt
+                    - u.updatedAt
+                    - u.enabled
+                from:
+                    - { table: '%pintushi_user.entity.user.class%', alias: u }
+            hints:
+                - HINT_TRANSLATABLE
+        columns:
+            firstName:
+                label:         pintushi.user.first_name.label
+            lastName:
+                label:         pintushi.user.last_name.label
+            email:
+                label:         pintushi.user.email.label
+            username:
+                label:         pintushi.user.username.label
+            enabled:
+                label:         pintushi.user.enabled.label
+            createdAt:
+                label:         pintushi.ui.created_at
+                frontend_type: datetime
+            updatedAt:
+                label:         pintushi.ui.updated_at
+                frontend_type: datetime
+        properties:
+            id: ~
+            update_link:
+                type: url
+                route: api_users_update
+                params:
+                    - id
+            view_link:
+                type: url
+                route: api_users_view
+                params:
+                    - id
+            delete_link:
+                type: url
+                route: api_users_delete
+                params:
+                    - id
+        sorters:
+            columns:
+                username:
+                    data_name: u.username
+                email:
+                    data_name: u.email
+                firstName:
+                    data_name: u.firstName
+                lastName:
+                    data_name: u.lastName
+                createdAt:
+                    data_name: u.createdAt
+                updatedAt:
+                    data_name: u.updatedAt
+                enabled:
+                    data_name: u.enabled
+            default:
+                username: '%pintushi_grid.extension.orm_sorter.class%::DIRECTION_ASC'
+
+        filters:
+            columns:
+                firstName:
+                    type: string
+                    data_name: u.firstName
+                lastName:
+                    type: string
+                    data_name: u.lastName
+                email:
+                    type: string
+                    data_name: u.email
+                username:
+                    type: string
+                    data_name: u.usernamenline
+                enabled:
+                    type: boolean
+                    data_name: u.enabled
+                    options:
+                        field_options:
+                            choices:
+                                pintushi.user.datagrid.user.filters.disabled: 2
+                                pintushi.user.datagrid.user.filters.enabled: 1
+                createdAt:
+                    type: datetime
+                    data_name: u.createdAt
+                updatedAt:
+                    type: datetime
+                    data_name: u.updatedAt
+
+        actions:
+            view:
+                type:          navigate
+                label:         pintushi.grid.action.view
+                link:          view_link
+                icon:          eye
+                acl_resource:  pintushi_user_user_view
+                rowAction:     true
+            update:
+                type:          navigate
+                label:         pintushi.grid.action.update
+                link:          update_link
+                icon:          pencil-square-o
+                acl_resource:  pintushi_user_user_update
+            delete:
+                type:          delete
+                label:         pintushi.grid.action.delete
+                link:          delete_link
+                icon:          trash-o
+                acl_resource:  pintushi_user_user_delete
+        # action_configuration: ['@pintushi_user.datagrid.action_checker', checkActions]

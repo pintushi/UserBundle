@@ -1,0 +1,20 @@
+entity_config_rules:
+    user_entity_grid_config_rule:
+        fields:
+            email:
+                exclude: true
+            status:
+                fields: 'name'
+            phones:
+                exclusion_policy: "all"
+                fields:
+                    phone: ~
+                    isPrimary: ~
+            addresses:
+                fields:
+                    owner:
+                        exlude: true
+                    country:
+                        fields: 'name'
+                    types:
+                        fields: 'name'
