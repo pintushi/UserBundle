@@ -8,57 +8,37 @@ grids:
                 delete:
                     enabled: false
         acl_resource: pintushi_user_user_view
-        entity_config_rule: 'user_entity_grid_config_rule'
         source:
             type: orm
-            query:
-                select:
-                    - u.id
-                    - u.username
-                    - u.email
-                    - u.firstName
-                    - u.lastName
-                    - u.createdAt
-                    - u.updatedAt
-                    - u.enabled
-                from:
-                    - { table: '%pintushi_user.entity.user.class%', alias: u }
+            query_builder: '@pintushi_user.repository.user->createListQueryBuilder'
             hints:
                 - HINT_TRANSLATABLE
         columns:
             firstName:
                 label:         pintushi.user.first_name.label
+                property_path: 'firstName'
             lastName:
                 label:         pintushi.user.last_name.label
+                property_path: 'lastName'
             email:
                 label:         pintushi.user.email.label
+                property_path: 'email'
             username:
                 label:         pintushi.user.username.label
+                property_path: 'username'
             enabled:
                 label:         pintushi.user.enabled.label
+                property_path: 'enabled'
             createdAt:
                 label:         pintushi.ui.created_at
                 frontend_type: datetime
+                property_path: 'createdAt'
             updatedAt:
                 label:         pintushi.ui.updated_at
                 frontend_type: datetime
+                property_path: 'updatedAt'
         properties:
             id: ~
-            update_link:
-                type: url
-                route: api_users_update
-                params:
-                    - id
-            view_link:
-                type: url
-                route: api_users_view
-                params:
-                    - id
-            delete_link:
-                type: url
-                route: api_users_delete
-                params:
-                    - id
         sorters:
             columns:
                 username:
@@ -77,7 +57,6 @@ grids:
                     data_name: u.enabled
             default:
                 username: '%pintushi_grid.extension.orm_sorter.class%::DIRECTION_ASC'
-
         filters:
             columns:
                 firstName:
@@ -91,7 +70,7 @@ grids:
                     data_name: u.email
                 username:
                     type: string
-                    data_name: u.usernamenline
+                    data_name: u.username
                 enabled:
                     type: boolean
                     data_name: u.enabled
@@ -106,25 +85,33 @@ grids:
                 updatedAt:
                     type: datetime
                     data_name: u.updatedAt
-
         actions:
             view:
                 type:          navigate
                 label:         pintushi.grid.action.view
-                link:          view_link
+                link:
+                    route: api_users_view
+                    params:
+                        - id
                 icon:          eye
                 acl_resource:  pintushi_user_user_view
                 rowAction:     true
             update:
                 type:          navigate
                 label:         pintushi.grid.action.update
-                link:          update_link
+                link:
+                    route: api_users_update
+                    params:
+                        - id
                 icon:          pencil-square-o
                 acl_resource:  pintushi_user_user_update
             delete:
                 type:          delete
                 label:         pintushi.grid.action.delete
-                link:          delete_link
+                link:
+                    route: api_users_delete
+                    params:
+                        - id
                 icon:          trash-o
                 acl_resource:  pintushi_user_user_delete
         # action_configuration: ['@pintushi_user.datagrid.action_checker', checkActions]

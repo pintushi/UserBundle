@@ -7,6 +7,7 @@ api:
             route_prefix: /admin
             validation_groups: ['pintushi']
             form: 'Pintushi\Bundle\UserBundle\Form\Type\UserType'
+            repository_class: 'Pintushi\Bundle\UserBundle\Repository\UserRepository'
             operations:
                 create:
                     action: create
