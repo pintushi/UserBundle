@@ -16,45 +16,45 @@ grids:
         columns:
             firstName:
                 label:         pintushi.user.first_name.label
-                property_path: 'firstName'
+                path: 'firstName'
             lastName:
                 label:         pintushi.user.last_name.label
-                property_path: 'lastName'
+                path: 'lastName'
             email:
                 label:         pintushi.user.email.label
-                property_path: 'email'
+                path: 'email'
             username:
                 label:         pintushi.user.username.label
-                property_path: 'username'
+                path: 'username'
             enabled:
                 label:         pintushi.user.enabled.label
-                property_path: 'enabled'
+                path: 'enabled'
             createdAt:
                 label:         pintushi.ui.created_at
                 frontend_type: datetime
-                property_path: 'createdAt'
+                path: 'createdAt'
             updatedAt:
                 label:         pintushi.ui.updated_at
                 frontend_type: datetime
-                property_path: 'updatedAt'
+                path: 'updatedAt'
         properties:
             id: ~
         sorters:
             columns:
                 username:
-                    data_name: u.username
+                    path: u.username
                 email:
-                    data_name: u.email
+                    path: u.email
                 firstName:
-                    data_name: u.firstName
+                    path: u.firstName
                 lastName:
-                    data_name: u.lastName
+                    path: u.lastName
                 createdAt:
-                    data_name: u.createdAt
+                    path: u.createdAt
                 updatedAt:
-                    data_name: u.updatedAt
+                    path: u.updatedAt
                 enabled:
-                    data_name: u.enabled
+                    path: u.enabled
             default:
                 username: '%pintushi_grid.extension.orm_sorter.class%::DIRECTION_ASC'
         filters:
@@ -77,8 +77,8 @@ grids:
                     options:
                         field_options:
                             choices:
-                                pintushi.user.datagrid.user.filters.disabled: 2
-                                pintushi.user.datagrid.user.filters.enabled: 1
+                                pintushi.user.grid.user.filters.disabled: 2
+                                pintushi.user.grid.user.filters.enabled: 1
                 createdAt:
                     type: datetime
                     data_name: u.createdAt
@@ -114,4 +114,4 @@ grids:
                         - id
                 icon:          trash-o
                 acl_resource:  pintushi_user_user_delete
-        # action_configuration: ['@pintushi_user.datagrid.action_checker', checkActions]
+        # action_configuration: ['@pintushi_user.grid.action_checker', checkActions]
