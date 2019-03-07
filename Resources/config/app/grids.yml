@@ -1,5 +1,5 @@
 grids:
-    users-grid:
+    user-grid:
         extended_entity_name: '%pintushi_user.entity.user.class%'
         options:
             entityHint: users
@@ -15,28 +15,28 @@ grids:
                 - HINT_TRANSLATABLE
         columns:
             firstName:
-                label:         pintushi.user.first_name.label
-                path: 'firstName'
+                label: pintushi.user.first_name.label
+                path:  'firstName'
             lastName:
-                label:         pintushi.user.last_name.label
-                path: 'lastName'
+                label: pintushi.user.last_name.label
+                path:  'lastName'
             email:
-                label:         pintushi.user.email.label
-                path: 'email'
+                label: pintushi.user.email.label
+                path:  'email'
             username:
-                label:         pintushi.user.username.label
+                label: pintushi.user.username.label
                 path: 'username'
             enabled:
-                label:         pintushi.user.enabled.label
-                path: 'enabled'
+                label: pintushi.user.enabled.label
+                path:  'enabled'
             createdAt:
-                label:         pintushi.ui.created_at
-                frontend_type: datetime
-                path: 'createdAt'
+                label: pintushi.ui.created_at
+                type:  datetime
+                path:  'createdAt'
             updatedAt:
-                label:         pintushi.ui.updated_at
-                frontend_type: datetime
-                path: 'updatedAt'
+                label: pintushi.ui.updated_at
+                type:  datetime
+                path:  'updatedAt'
         properties:
             id: ~
         sorters:
@@ -61,19 +61,19 @@ grids:
             columns:
                 firstName:
                     type: string
-                    data_name: u.firstName
+                    path: u.firstName
                 lastName:
                     type: string
-                    data_name: u.lastName
+                    path: u.lastName
                 email:
                     type: string
-                    data_name: u.email
+                    path: u.email
                 username:
                     type: string
-                    data_name: u.username
+                    path: u.username
                 enabled:
                     type: boolean
-                    data_name: u.enabled
+                    path: u.enabled
                     options:
                         field_options:
                             choices:
@@ -81,10 +81,10 @@ grids:
                                 pintushi.user.grid.user.filters.enabled: 1
                 createdAt:
                     type: datetime
-                    data_name: u.createdAt
+                    path: u.createdAt
                 updatedAt:
                     type: datetime
-                    data_name: u.updatedAt
+                    path: u.updatedAt
         actions:
             view:
                 type:          navigate

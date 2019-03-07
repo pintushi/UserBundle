@@ -37,6 +37,5 @@ api:
                     resource_provider: App\ResourceProvider\GetUserProfile
                 index:
                     action: index
-                    grid: 'users-grid'
+                    grid: 'user-grid'
                     access_control: is_granted('pintushi_user_user_view')
-                    acl_enabled: true
