@@ -1,0 +1,27 @@
+api:
+    resources:
+        Pintushi\Bundle\UserBundle\Entity\Group:
+            scope: pintushi_user
+            normalization_context:
+                groups: ['Group']
+            route_prefix: /admin
+            validation_groups: ['pintushi']
+            form: 'Pintushi\Bundle\UserBundle\Form\Type\GroupType'
+            operations:
+                create:
+                    action: create
+                    validation_groups: ['pintushi']
+                    access_control: is_granted('pintushi_user_group_create')
+                delete:
+                    action: delete
+                    access_control: is_granted('pintushi_user_group_delete', object)
+                update:
+                    action: update
+                    access_control: is_granted('pintushi_user_group_edit', object)
+                view:
+                    action: view
+                    access_control: is_granted('pintushi_user_group_view')
+                # index:
+                #     action: index
+                #     access_control: is_granted('pintushi_user_group_view')
+                #     acl_enabled: true

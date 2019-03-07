@@ -1,0 +1,25 @@
+api:
+    resources:
+        Pintushi\Bundle\UserBundle\Entity\Role:
+            scope: pintushi_user
+            normalization_context:
+                groups: ['Role', 'Default']
+            route_prefix: /admin
+            validation_groups: ['pintushi']
+            repository_class: Pintushi\Bundle\UserBundle\Repository\RoleRepository
+            operations:
+                # check RoleController for create and update actions
+                delete:
+                    action: delete
+                    access_control: is_granted('pintushi_user_role_view') && (service("pintushi_security.token_accessor").getOrganization().isGlobal() || (null !== object.getOrganization() && service("pintushi_security.token_accessor").getOrganization() === object.getOrganization()))
+                view:
+                    route_name: 'pintushi_role_view'
+                    action: view
+                    access_control: is_granted('pintushi_user_role_view') && (service("pintushi_security.token_accessor").getOrganization().isGlobal() || (null !== object.getOrganization() && service("pintushi_security.token_accessor").getOrganization() === object.getOrganization()))
+                # index:
+                #     action: index
+                #     repository:
+                #         method: createOrganizationQueryBuilder
+                #         arguments:
+                #             - expr:service("pintushi_security.token_accessor").getOrganization()
+                #     access_control: is_granted('pintushi_role_view')
