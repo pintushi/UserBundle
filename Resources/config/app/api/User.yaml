@@ -3,7 +3,7 @@ api:
         Pintushi\Bundle\UserBundle\Entity\User:
             scope: pintushi_user
             normalization_context:
-                groups: ['User']
+                groups: ['User', 'Organization', 'BusinessUnit']
             route_prefix: /admin
             validation_groups: ['pintushi']
             form: 'Pintushi\Bundle\UserBundle\Form\Type\UserType'
@@ -11,8 +11,13 @@ api:
             operations:
                 create:
                     action: create
-                    path: '/users/create'
-                    methods: ['GET', 'POST']
+                    path: '/users'
+                    validation_groups: ['pintushi', 'pintushi_user_create']
+                    access_control: is_granted('pintushi_user_user_create')
+                create_form:
+                    action: create
+                    path: '/users/create-form'
+                    methods: ['GET']
                     validation_groups: ['pintushi', 'pintushi_user_create']
                     access_control: is_granted('pintushi_user_user_create')
                 delete:
@@ -20,8 +25,12 @@ api:
                     access_control: is_granted('pintushi_user_user_delete', object)
                 update:
                     action: update
-                    path: '/users/update'
-                    methods: ['GET', 'POST']
+                    path: '/users'
+                    access_control: is_granted('pintushi_user_user_edit', object)
+                update_form:
+                    action: update
+                    path: '/users/update-form'
+                    methods: ['GET']
                     access_control: is_granted('pintushi_user_user_edit', object)
                 view:
                     action: view
@@ -29,15 +38,21 @@ api:
                 get_user_profile:
                     action: view
                     path: '/profile'
-                    resource_provider: App\ResourceProvider\GetUserProfile
+                    resource_provider: "expr:service('pintushi_security.token_accessor').getUser()"
                 update_user_profile:
                     action: update
                     path: '/profile'
-                    form: 'App\Form\Type\UserProfileType'
-                    resource_provider: App\ResourceProvider\GetUserProfile
+                    form: 'Pintushi\Bundle\UserBundle\Form\Type\UserProfileType'
+                    resource_provider: "expr:service('pintushi_security.token_accessor').getUser()"
+                update_user_profile_form:
+                    action: update
+                    methods: ['GET']
+                    path: '/profile-form'
+                    form: 'Pintushi\Bundle\UserBundle\Form\Type\UserProfileType'
+                    resource_provider: "expr:service('pintushi_security.token_accessor').getUser()"
                 index:
                     action: index
                     grid: 'user-grid'
                     normalization_context:
-                        groups: ['User', 'Default']
+                        groups: ['User', 'Default', 'Organization']
                     access_control: is_granted('pintushi_user_user_view')

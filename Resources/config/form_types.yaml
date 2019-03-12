@@ -13,7 +13,7 @@ services:
             - 'pintushi_user.entity.user.class'
             - []
 
-    Pintushi\Bundle\UserBundle\Form\Type\UserProfileType: ~
+    Pintushi\Bundle\UserBundle\Form\Type\UserProfileType:
         arguments:
             - 'pintushi_user.entity.user.class'
             - []

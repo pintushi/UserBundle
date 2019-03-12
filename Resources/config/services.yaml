@@ -1,5 +1,6 @@
 imports:
     - { resource: autocomplete.yaml }
+    - { resource: form_types.yaml }
 
 services:
     _defaults:

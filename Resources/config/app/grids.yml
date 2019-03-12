@@ -37,7 +37,6 @@ grids:
                 label: pintushi.ui.updated_at
                 type:  datetime
                 path:  'updatedAt'
-        properties:
             id: ~
         sorters:
             columns:
