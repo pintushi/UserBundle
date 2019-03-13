@@ -24,7 +24,6 @@
         <field name="passwordResetToken" column="password_reset_token" type="string" nullable="true" />
         <field name="passwordRequestedAt" column="password_requested_at" type="datetime" nullable="true" />
         <field name="emailVerificationToken" column="email_verification_token" type="string" nullable="true" />
-        <field name="expiresAt" column="expires_at" type="datetime" nullable="true" />
         <field name="createdAt" column="created_at" type="datetime">
             <gedmo:timestampable on="create"/>
         </field>

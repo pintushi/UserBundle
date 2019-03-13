@@ -419,7 +419,15 @@ abstract class AbstractUser implements UserInterface
      */
     public function isAccountNonExpired(): bool
     {
-        return !$this->hasExpired($this->expiresAt);
+        return true;
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    public function isAccountNonLocked()
+    {
+        return $this->isEnabled();
     }
 
     /**
@@ -487,32 +495,6 @@ abstract class AbstractUser implements UserInterface
     public function setEmailVerificationToken(?string $verificationToken): void
     {
         $this->emailVerificationToken = $verificationToken;
-    }
-
- /**
-     * {@inheritdoc}
-     */
-    public function getExpiresAt(): ?\DateTimeInterface
-    {
-        return $this->expiresAt;
-    }
-
-    /**
-     * {@inheritdoc}
-     */
-    public function setExpiresAt(?\DateTimeInterface $date): void
-    {
-        $this->expiresAt = $date;
-    }
-
-    /**
-     * @param \DateTimeInterface|null $date
-     *
-     * @return bool
-     */
-    protected function hasExpired(?\DateTimeInterface $date): bool
-    {
-        return null !== $date && new \DateTime() >= $date;
     }
 
      /**
