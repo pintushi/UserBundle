@@ -1,6 +1,7 @@
 grids:
     user-grid:
         extended_entity_name: '%pintushi_user.entity.user.class%'
+        views_list: "@pintushi_user.user.grid_view_list"
         options:
             entityHint: users
             entity_pagination: true

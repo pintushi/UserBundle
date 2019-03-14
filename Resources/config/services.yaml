@@ -81,3 +81,9 @@ services:
             - { name: pintushi_user.privilege_category}
 
     Pintushi\Bundle\UserBundle\Security\UserChecker: ~
+
+    pintushi_user.user.grid_view_list:
+        class: 'Pintushi\Bundle\UserBundle\Grid\UserViewList'
+        public: true
+        arguments:
+            - '@translator'
