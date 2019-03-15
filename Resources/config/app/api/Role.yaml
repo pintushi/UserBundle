@@ -29,7 +29,7 @@ api:
                 update_form:
                     action: update
                     methods: ['GET']
-                    path: '/roles/update-form'
+                    path: '/roles/{id}/update-form'
                     access_control: is_granted('pintushi_user_role_update', object) && (service("pintushi_security.token_accessor").getOrganization().isGlobal() || (null !== object.getOrganization() && service("pintushi_security.token_accessor").getOrganization() === object.getOrganization()))
                     requirements:
                         id: '\d+'
