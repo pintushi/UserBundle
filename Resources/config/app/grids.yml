@@ -116,3 +116,32 @@ grids:
                 icon:          trash-o
                 acl_resource:  pintushi_user_user_delete
         # action_configuration: ['@pintushi_user.grid.action_checker', checkActions]
+
+    role-grid:
+        extended_entity_name: '%pintushi_user.entity.role.class%'
+        options:
+            entityHint: roles
+            entity_pagination: true
+            detect_organization: true
+            mass_actions:
+                delete:
+                    enabled: false
+        acl_resource: pintushi_user_role_view
+        source:
+            type: orm
+            query_builder: '@pintushi_user.repository.role->createQueryBuilder("o")'
+            hints:
+                - HINT_TRANSLATABLE
+        columns:
+            label:
+                label: pintushi.role.label.label
+                path:  'label'
+            description:
+                label: pintushi.role.description.label
+                path:  'description'
+            id: ~
+        filters:
+            columns:
+                label:
+                    type: string
+                    path: o.firstName

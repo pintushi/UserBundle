@@ -1,0 +1,21 @@
+Pintushi\Bundle\UserBundle\Entity\Role:
+    exclusion_policy: ALL
+    xml_root_name: role
+    properties:
+        id:
+            type: integer
+            xml_attribute: true
+            groups: [Role]
+        label:
+            type: string
+            xml_attribute: true
+            groups: [Role]
+        description:
+            type: string
+            xml_attribute: true
+            groups: [Role]
+        role:
+            type: string
+            xml_attribute: true
+            groups: [Role]
+

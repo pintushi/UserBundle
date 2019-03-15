@@ -63,7 +63,8 @@ class AclRoleType extends AbstractType
         } else {
             $builder->add('organization', EntityType::class, [
                 'class'                => Organization::class,
-                'property'             => 'name',
+                'choice_name'             => 'name',
+                'choice_value'             => 'id',
                 'query_builder'        => function (OrgnaizationRepository $repository) use ($user) {
                     $qb = $repository->createQueryBuilder('o');
                     $qb->andWhere($qb->expr()->isMemberOf(':user', 'o.users'));
@@ -98,6 +99,7 @@ class AclRoleType extends AbstractType
         $resolver->setDefaults(
             [
                 'data_class' => Role::class,
+                'ownership_disabled' => true
             ]
         );
     }

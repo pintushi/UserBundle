@@ -1,0 +1,12 @@
+Pintushi\Bundle\UserBundle\Entity\Group:
+    exclusion_policy: ALL
+    xml_root_name: group
+    properties:
+        id:
+            type: integer
+            xml_attribute: true
+            groups: [Group]
+        name:
+            type: string
+            xml_attribute: true
+            groups: [Group]

@@ -1,0 +1,59 @@
+Pintushi\Bundle\UserBundle\Entity\AbstractUser:
+    exclusion_policy: ALL
+    xml_root_name: user
+    properties:
+        id:
+            expose: true
+            type: integer
+            xml_attribute: true
+            groups: [User]
+        username:
+            expose: true
+            type: string
+            xml_attribute: true
+            groups: [User]
+        gender:
+            expose: true
+            type: string
+            xml_attribute: true
+            groups: [User]
+        fullName:
+            expose: true
+            type: string
+            xml_attribute: true
+            groups: [User]
+        firstName:
+            expose: true
+            type: string
+            xml_attribute: true
+            groups: [User]
+        lastName:
+            expose: true
+            type: string
+            xml_attribute: true
+            groups: [User]
+        avatar:
+            expose: true
+            type: string
+            xml_attribute: true
+            groups: [User]
+        email:
+            expose: true
+            type: string
+            xml_attribute: true
+            groups: [User]
+        phoneNumber:
+            expose: true
+            type: string
+            xml_attribute: true
+            groups: [User]
+        enabled:
+            expose: true
+            type: bool
+            xml_attribute: true
+            groups: [User]
+        lastLogin:
+            expose: true
+            type: DateTime<'Y-m-d H:i:s'>
+            xml_attribute: true
+            groups: [User]

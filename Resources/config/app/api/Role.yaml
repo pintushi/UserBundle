@@ -3,23 +3,54 @@ api:
         Pintushi\Bundle\UserBundle\Entity\Role:
             scope: pintushi_user
             normalization_context:
-                groups: ['Role', 'Default']
+                groups: ['Role']
             route_prefix: /admin
             validation_groups: ['pintushi']
             repository_class: Pintushi\Bundle\UserBundle\Repository\RoleRepository
+            form: 'Pintushi\Bundle\UserBundle\Form\Type\AclRoleType'
             operations:
-                # check RoleController for create and update actions
                 delete:
                     action: delete
                     access_control: is_granted('pintushi_user_role_view') && (service("pintushi_security.token_accessor").getOrganization().isGlobal() || (null !== object.getOrganization() && service("pintushi_security.token_accessor").getOrganization() === object.getOrganization()))
                 view:
-                    route_name: 'pintushi_role_view'
                     action: view
+                    path: '/roles/{id}'
                     access_control: is_granted('pintushi_user_role_view') && (service("pintushi_security.token_accessor").getOrganization().isGlobal() || (null !== object.getOrganization() && service("pintushi_security.token_accessor").getOrganization() === object.getOrganization()))
-                # index:
-                #     action: index
-                #     repository:
-                #         method: createOrganizationQueryBuilder
-                #         arguments:
-                #             - expr:service("pintushi_security.token_accessor").getOrganization()
-                #     access_control: is_granted('pintushi_role_view')
+                    controller: Pintushi\Bundle\UserBundle\Controller\RoleController::view
+                    requirements:
+                        id: '\d+'
+                update:
+                    action: update
+                    path: '/roles/{id}'
+                    access_control: is_granted('pintushi_user_role_update', object) && (service("pintushi_security.token_accessor").getOrganization().isGlobal() || (null !== object.getOrganization() && service("pintushi_security.token_accessor").getOrganization() === object.getOrganization()))
+                    controller: Pintushi\Bundle\UserBundle\Controller\RoleController::handle
+                    defaults:
+                        _api_persist: false
+                update_form:
+                    action: update
+                    methods: ['GET']
+                    path: '/roles/update-form'
+                    access_control: is_granted('pintushi_user_role_update', object) && (service("pintushi_security.token_accessor").getOrganization().isGlobal() || (null !== object.getOrganization() && service("pintushi_security.token_accessor").getOrganization() === object.getOrganization()))
+                    requirements:
+                        id: '\d+'
+                create:
+                    action: create
+                    access_control: is_granted('pintushi_user_role_create')
+                    controller: Pintushi\Bundle\UserBundle\Controller\RoleController::handle
+                    defaults:
+                        _api_persist: false
+                create_form:
+                    action: create
+                    methods: ['GET']
+                    path: '/roles/create-form'
+                    access_control: is_granted('pintushi_user_role_create')
+                index:
+                    action: index
+                    grid: 'role-grid'
+                    normalization_context:
+                        groups: ['Role', 'Default']
+                    resource_provider:
+                        method: createOrganizationQueryBuilder
+                        arguments:
+                            - expr:service("pintushi_security.token_accessor").getOrganization()
+                    access_control: is_granted('pintushi_user_role_view')
