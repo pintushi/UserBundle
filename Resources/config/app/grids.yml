@@ -5,6 +5,7 @@ grids:
         options:
             entityHint: users
             entity_pagination: true
+            detect_organization: true
             mass_actions:
                 delete:
                     enabled: false
