@@ -94,9 +94,6 @@ class UserType extends AbstractResourceType
             ->add('firstName', FormTypes\TextType::class)
             ->add('lastName', FormTypes\TextType::class)
             ->add('enabled', FormTypes\CheckboxType::class)
-            ->add('expiresAt', FormTypes\DateTimeType::class, [
-                'widget'=>'single_text',
-            ])
         ;
     }
 
