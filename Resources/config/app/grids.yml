@@ -43,38 +43,38 @@ grids:
         sorters:
             columns:
                 username:
-                    path: u.username
+                    path: o.username
                 email:
-                    path: u.email
+                    path: o.email
                 firstName:
-                    path: u.firstName
+                    path: o.firstName
                 lastName:
-                    path: u.lastName
+                    path: o.lastName
                 createdAt:
-                    path: u.createdAt
+                    path: o.createdAt
                 updatedAt:
-                    path: u.updatedAt
+                    path: o.updatedAt
                 enabled:
-                    path: u.enabled
+                    path: o.enabled
             default:
                 username: '%pintushi_grid.extension.orm_sorter.class%::DIRECTION_ASC'
         filters:
             columns:
                 firstName:
                     type: string
-                    path: u.firstName
+                    path: o.firstName
                 lastName:
                     type: string
-                    path: u.lastName
+                    path: o.lastName
                 email:
                     type: string
-                    path: u.email
+                    path: o.email
                 username:
                     type: string
-                    path: u.username
+                    path: o.username
                 enabled:
                     type: boolean
-                    path: u.enabled
+                    path: o.enabled
                     options:
                         field_options:
                             choices:
@@ -82,10 +82,10 @@ grids:
                                 pintushi.user.grid.user.filters.enabled: 1
                 createdAt:
                     type: datetime
-                    path: u.createdAt
+                    path: o.createdAt
                 updatedAt:
                     type: datetime
-                    path: u.updatedAt
+                    path: o.updatedAt
         actions:
             view:
                 type:          navigate

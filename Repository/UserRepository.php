@@ -19,8 +19,8 @@ class UserRepository extends ServiceEntityRepository
     public function createListQueryBuilder()
     {
         return $this
-            ->createQueryBuilder('u')
-            ->leftJoin('u.organization', 'a')
+            ->createQueryBuilder('o')
+            ->leftJoin('o.organization', 'a')
             ->addSelect('a')
         ;
     }
