@@ -7,22 +7,3 @@ Pintushi\Bundle\UserBundle\Entity\User:
             type: array
             xml_attribute: true
             groups: [Group]
-    relations:
-        -   rel: owner
-            href:
-                route: api_business_units_view
-                parameters:
-                    id: expr(object.getOwner().getId())
-            embedded: "expr(object.getOwner())"
-            exclusion:
-                groups: [BusinessUnit]
-
-        -   rel: organization
-            href:
-                route: api_organizations_view
-                parameters:
-                    id: expr(object.getOrganization().getId())
-            embedded: "expr(object.getOrganization())"
-            exclusion:
-                groups: [Organization]
-                exclude_if: "expr(!service('pintushi_security.token_accessor').getOrganization().isGlobal())"
