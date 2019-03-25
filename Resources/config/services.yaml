@@ -75,6 +75,13 @@ services:
             - '@Pintushi\Bundle\UserBundle\Provider\Privilege\RolePrivilegeCategoryProvider'
             - '@pintushi_entity_config.config_manager'
 
+    Pintushi\Bundle\UserBundle\Provider\Privilege\RolePrivilegeCategoryProvider:
+        public: true
+
+    pintushi_user.role_privilege_category_provider:
+        public: true
+        alias: 'Pintushi\Bundle\UserBundle\Provider\Privilege\RolePrivilegeCategoryProvider'
+
     pintushi_user.provider.privilege_category_provider:
         class: 'Pintushi\Bundle\UserBundle\Provider\Privilege\PrivilegeCategoryProvider'
         tags:
