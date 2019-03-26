@@ -22,7 +22,7 @@ api:
                 update:
                     action: update
                     path: '/roles/{id}'
-                    access_control: is_granted('pintushi_user_role_update', object) && (service("pintushi_security.token_accessor").getOrganization().isGlobal() || (null !== object.getOrganization() && service("pintushi_security.token_accessor").getOrganization() === object.getOrganization()))
+                    access_control: is_granted('pintushi_user_role_edit', object) && (service("pintushi_security.token_accessor").getOrganization().isGlobal() || (null !== object.getOrganization() && service("pintushi_security.token_accessor").getOrganization() === object.getOrganization()))
                     controller: Pintushi\Bundle\UserBundle\Controller\RoleController::handle
                     defaults:
                         _api_persist: false
@@ -30,7 +30,7 @@ api:
                     action: update
                     methods: ['GET']
                     path: '/roles/{id}/update-form'
-                    access_control: is_granted('pintushi_user_role_update', object) && (service("pintushi_security.token_accessor").getOrganization().isGlobal() || (null !== object.getOrganization() && service("pintushi_security.token_accessor").getOrganization() === object.getOrganization()))
+                    access_control: is_granted('pintushi_user_role_edit', object) && (service("pintushi_security.token_accessor").getOrganization().isGlobal() || (null !== object.getOrganization() && service("pintushi_security.token_accessor").getOrganization() === object.getOrganization()))
                     requirements:
                         id: '\d+'
                 create:

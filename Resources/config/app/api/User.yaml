@@ -25,13 +25,17 @@ api:
                     access_control: is_granted('pintushi_user_user_delete', object)
                 update:
                     action: update
-                    path: '/users'
+                    path: '/users/{id}'
                     access_control: is_granted('pintushi_user_user_edit', object)
+                    requirements:
+                        id: '\d+'
                 update_form:
                     action: update
-                    path: '/users/update-form'
+                    path: '/users/{id}/update-form'
                     methods: ['GET']
                     access_control: is_granted('pintushi_user_user_edit', object)
+                    requirements:
+                        id: '\d+'
                 view:
                     action: view
                     access_control: is_granted('pintushi_user_user_view')

@@ -16,6 +16,7 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\Form\FormInterface;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\Routing\Annotation\Route;
 
 class RoleController extends AbstractController
 {
@@ -67,6 +68,34 @@ class RoleController extends AbstractController
             // TODO: it is a temporary solution. In a future it is planned to give an user a choose what to do:
             // completely delete a role and un-assign it from all users or reassign users to another role before
             'allow_delete' => $data->getId() && !$this->roleRepository->hasAssignedUsers($data)
+        ];
+    }
+
+    /**
+     * @Route("roles/available_permissions",
+     *  name="api_role_show_available_permissions",
+     *  methods={"GET"},
+     *  defaults={
+     *        "_api_receive"=false,
+     *        "_api_respond"=true,
+     *        "_api_resource_class"=Role::class,
+     *  }
+     * )
+     */
+    public function showAvailablePermissions()
+    {
+        $role = new Role();
+
+        return [
+            'role_permissions' => $this->rolePermissionProvider->getResults($role),
+            'tabs_options' => [
+                'data' => $this->getTabListOptions()
+            ],
+            'capability_set_options' => [
+                'data' => $this->rolePrivilegeCapabilityProvider->getCapabilities($role),
+                'tab_ids' => $this->rolePrivilegeCategoryProvider->getTabList(),
+                'readonly' => true
+            ],
         ];
     }
 
