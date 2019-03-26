@@ -92,8 +92,6 @@ grids:
                     label:         pintushi.grid.action.create
                     link:
                         route: api_users_create
-                        params:
-                            id: expr(object.getResource().getId())
                     icon:          eye
                     acl_resource:  pintushi_user_user_view
             item:
@@ -122,7 +120,6 @@ grids:
                             id: expr(object.getResource().getId())
                     icon:          trash-o
                     acl_resource:  pintushi_user_user_delete
-        # action_configuration: ['@pintushi_user.grid.action_checker', checkActions]
 
     role-grid:
         extended_entity_name: '%pintushi_user.entity.role.class%'
