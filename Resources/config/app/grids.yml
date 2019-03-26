@@ -87,34 +87,41 @@ grids:
                     type: datetime
                     path: o.updatedAt
         actions:
-            view:
-                type:          navigate
-                label:         pintushi.grid.action.view
-                link:
-                    route: api_users_view
-                    params:
-                        - id
-                icon:          eye
-                acl_resource:  pintushi_user_user_view
-                rowAction:     true
-            update:
-                type:          navigate
-                label:         pintushi.grid.action.update
-                link:
-                    route: api_users_update
-                    params:
-                        - id
-                icon:          pencil-square-o
-                acl_resource:  pintushi_user_user_update
-            delete:
-                type:          delete
-                label:         pintushi.grid.action.delete
-                link:
-                    route: api_users_delete
-                    params:
-                        - id
-                icon:          trash-o
-                acl_resource:  pintushi_user_user_delete
+            main:
+                create:
+                    label:         pintushi.grid.action.create
+                    link:
+                        route: api_users_create
+                        params:
+                            id: expr(object.getResource().getId())
+                    icon:          eye
+                    acl_resource:  pintushi_user_user_view
+            item:
+                view:
+                    label:         pintushi.grid.action.view
+                    link:
+                        route: api_users_view
+                        params:
+                            id: expr(object.getResource().getId())
+                    icon:          eye
+                    acl_resource:  pintushi_user_user_view
+                    rowAction:     true
+                update:
+                    label:         pintushi.grid.action.update
+                    link:
+                        route: api_users_update
+                        params:
+                            id: expr(object.getResource().getId())
+                    icon:          pencil-square-o
+                    acl_resource:  pintushi_user_user_edit
+                delete:
+                    label:         pintushi.grid.action.delete
+                    link:
+                        route: api_users_delete
+                        params:
+                            id: expr(object.getResource().getId())
+                    icon:          trash-o
+                    acl_resource:  pintushi_user_user_delete
         # action_configuration: ['@pintushi_user.grid.action_checker', checkActions]
 
     role-grid:
