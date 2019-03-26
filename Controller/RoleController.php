@@ -76,9 +76,8 @@ class RoleController extends AbstractController
      *  name="api_role_show_available_permissions",
      *  methods={"GET"},
      *  defaults={
-     *        "_api_receive"=false,
      *        "_api_respond"=true,
-     *        "_api_resource_class"=Role::class,
+     *        "_format"="json"
      *  }
      * )
      */
