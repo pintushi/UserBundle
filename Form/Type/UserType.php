@@ -14,19 +14,23 @@ use Symfony\Component\Security\Core\Authorization\AuthorizationCheckerInterface;
 use Pintushi\Bundle\OrganizationBundle\Form\Type\OrganizationsSelectType;
 use Doctrine\ORM\EntityRepository;
 use Videni\Bundle\RestBundle\Form\Type\AbstractResourceType;
+use Pintushi\Bundle\SecurityBundle\Authentication\TokenAccessorInterface;
 
 class UserType extends AbstractResourceType
 {
     private $authorizationChecker;
+    private $tokenAccessor;
 
     public function __construct(
         string $dataClass,
         array $validationGroups = [],
+         TokenAccessorInterface $tokenAccessor,
         AuthorizationCheckerInterface $authorizationChecker
     ) {
         parent::__construct($dataClass, $validationGroups);
 
         $this->authorizationChecker = $authorizationChecker;
+        $this->tokenAccessor = $tokenAccessor;
     }
 
      /**
@@ -38,6 +42,8 @@ class UserType extends AbstractResourceType
 
         $this->setDefaultUserFields($builder);
 
+        $tokenAccessor = $this->tokenAccessor;
+
         if ($this->authorizationChecker->isGranted('pintushi_user_role_view')) {
             $builder->add(
                 'roles',
@@ -46,11 +52,23 @@ class UserType extends AbstractResourceType
                     'label'         => 'pintushi.user.roles.label',
                     'class'         => Role::class,
                     'choice_label'      => 'label',
-                    'query_builder' => function (EntityRepository $er) {
-                        return $er->createQueryBuilder('r')
+                    'query_builder' => function (EntityRepository $er) use($tokenAccessor) {
+                        $organization = $tokenAccessor->getOrganization();
+
+                        $qb = $er->createQueryBuilder('r')
                             ->where('r.role <> :anon')
                             ->setParameter('anon', UserInterface::ROLE_ANONYMOUS)
-                            ->orderBy('r.label');
+                            ->orderBy('r.label')
+                        ;
+
+                        if (!$organization->isGlobal()) {
+                            $qb->where($qb->expr()->orX(
+                               $qb->expr()->eq('IDENTITY(r.organization)', null),
+                               $qb->expr()->eq('IDENTITY(r.organization)', $organization->getId())
+                            ));
+                        }
+
+                        return $qb;
                     },
                     'multiple'      => true,
                     'expanded'      => true,
