@@ -56,25 +56,7 @@ class AclRoleType extends AbstractType
             return;
         }
 
-        $organization = $this->tokenAccessor->getOrganization();
-
-        if ($this->authorizationChecker->isGranted('VIEW', 'entity:'. Organization::class)) {
-            $builder->add('organization', OrganizationSelectType::class);
-        } else {
-            $builder->add('organization', EntityType::class, [
-                'class'                => Organization::class,
-                'choice_name'             => 'name',
-                'choice_value'             => 'id',
-                'query_builder'        => function (OrgnaizationRepository $repository) use ($user) {
-                    $qb = $repository->createQueryBuilder('o');
-                    $qb->andWhere($qb->expr()->isMemberOf(':user', 'o.users'));
-                    $qb->setParameter('user', $user);
-
-                    return $qb;
-                },
-                'mapped'               => true,
-            ]);
-        }
+        $builder->add('organization', OrganizationSelectType::class);
 
         $isAssignGranted = $this->authorizationChecker->isGranted('ASSIGN', 'entity:'. Role::Class);
 
